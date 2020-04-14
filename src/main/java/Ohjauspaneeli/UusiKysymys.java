@@ -21,6 +21,7 @@ public class UusiKysymys extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     	// read form fields
+		Integer kysymysid = Integer.parseInt(request.getParameter("kysymysid"));
 		String kysymys = request.getParameter("kysymys");
 		
 	      EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "vaalikones" );
@@ -29,6 +30,7 @@ public class UusiKysymys extends HttpServlet {
 	      entitymanager.getTransaction( ).begin( );
 	      
 	      Kysymykset kysymykset = new Kysymykset( );
+	      kysymykset.setKysymysId( kysymysid );
 	      kysymykset.setKysymys( kysymys );
 	      
 	      entitymanager.persist( kysymykset );
