@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +39,8 @@ public class UusiKysymys extends HttpServlet {
 
 	      entitymanager.close( );
 	      emfactory.close( );
+	      
+	      response.sendRedirect("/Ohjauspaneeli.html");
 		
 	}
 
