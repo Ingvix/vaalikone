@@ -42,6 +42,7 @@ public class Vaalikone extends HttpServlet {
 	
     //hae java logger-instanssi
     private final static Logger logger = Logger.getLogger(Loki.class.getName());
+	public static int rowCnt;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -83,6 +84,8 @@ public class Vaalikone extends HttpServlet {
           	return;
         }
         
+        Long rowCnt= (Long) em.createNativeQuery("SELECT COUNT(kysymys_id) FROM Kysymykset").getSingleResult();
+        
         //hae url-parametri func joka määrittää toiminnon mitä halutaan tehdä.
         //func=haeEhdokas: hae tietyn ehdokkaan tiedot ja vertaile niitä käyttäjän vastauksiin
         //Jos ei määritelty, esitetään kysymyksiä.
@@ -112,7 +115,7 @@ public class Vaalikone extends HttpServlet {
             }
 
             //jos kysymyksiä on vielä jäljellä, hae seuraava
-            if (kysymys_id < 20) {
+            if (kysymys_id <= rowCnt) {
                 try {
                     //Hae haluttu kysymys tietokannasta
                     Query q = em.createQuery(
@@ -136,7 +139,7 @@ public class Vaalikone extends HttpServlet {
             } else {
 
                 //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < rowCnt; i++) {
                     usr.pisteet.set(i, new Tuple<>(0, 0));
                 }
 
