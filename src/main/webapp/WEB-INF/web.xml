@@ -12,10 +12,18 @@
     <servlet-name>Vaalikone</servlet-name>
     <servlet-class>vaalikone.Vaalikone</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Ohjauspaneeli</servlet-name>
+    <servlet-class>Ohjauspaneeli.Ohjauspaneeli</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>Vaalikone</servlet-name>
     <url-pattern>/Vaalikone</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Ohjauspaneeli</servlet-name>
+    <url-pattern>/Ohjauspaneeli</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>30</session-timeout>
