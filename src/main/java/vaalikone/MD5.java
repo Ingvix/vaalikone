@@ -48,7 +48,7 @@ public class MD5 extends HttpServlet {
 //        	response.sendRedirect("/Ohjauspaneeli.html");
 //        }
 //        else{
-//        	response.getWriter().print("Väärä tunnukset");
+//        	response.getWriter().print("Vï¿½ï¿½rï¿½ tunnukset");
 //        }
 //    } catch (Exception e) {
 //       System.err.println("Got an exception! ");
@@ -71,10 +71,10 @@ public class MD5 extends HttpServlet {
    
     
     if (request.getParameter("password").equals(admincryptedpassword) && request.getParameter("username").equals(adminusername)) {
-    	response.sendRedirect("/Ohjauspaneeli.html");
+    	response.sendRedirect("Ohjauspaneeli");
     }
     else if (request.getParameter("password") != admincryptedpassword || request.getParameter("username") != adminusername) {
-    	response.getWriter().print("Väärä tunnukset");
+    	response.getWriter().print("VÃ¤Ã¤rÃ¤t tunnukset");
     }
     
     
