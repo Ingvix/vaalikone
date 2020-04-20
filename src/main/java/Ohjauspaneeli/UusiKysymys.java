@@ -40,7 +40,7 @@ public class UusiKysymys extends HttpServlet {
 	      entitymanager.close( );
 	      emfactory.close( );
 	      
-	      response.sendRedirect("/Ohjauspaneeli.html");
+	      response.sendRedirect("/Ohjauspaneeli");
 		
 	}
 
