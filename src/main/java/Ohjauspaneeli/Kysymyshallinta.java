@@ -20,7 +20,7 @@ import persist.Kysymykset;
 /**
  * Servlet implementation class KysymysPoisto
  */
-@WebServlet("/KysymysPoisto")
+@WebServlet("/Kysymyshallinta")
 public class Kysymyshallinta extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

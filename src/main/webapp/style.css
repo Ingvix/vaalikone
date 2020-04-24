@@ -82,6 +82,11 @@ body {
 	border-collapse: collapse;
 }
 
+#suodatus {
+	border-collapse: collapse;
+	margin: 0 0 4px 0;
+}
+
 .text input {
 	width: calc(100% - 4px);
 }
@@ -97,6 +102,7 @@ td, th {
 .index {
 	width: 1px;
 	text-align: right;
+	font-family: "Courier New", Courier, monospace;
 }
 
 th[class="index"] {

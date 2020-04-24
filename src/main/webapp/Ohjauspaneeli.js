@@ -24,3 +24,23 @@ function tarkistaMuutokset() {
 	}
 	return false
 }
+
+function suodata() {
+	var syote = document.getElementById("suodatin");
+	var suodatin = syote.value.toUpperCase();
+	var lista = document.getElementById("kysymysLista");
+	var tr = lista.getElementsByTagName("tr");
+
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[2];
+		if (td) {
+			kysymys = td.firstChild.value;
+			original = td.firstChild.dataset.original;
+			if (kysymys.toUpperCase().indexOf(suodatin) > -1 || original.toUpperCase().indexOf(suodatin) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}

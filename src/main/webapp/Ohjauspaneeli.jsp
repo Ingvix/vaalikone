@@ -28,7 +28,11 @@
 		<br> <br>
 
 		<h1>Kysymysten hallinta</h1>
-		<form id="kysymysForm" onsubmit="return tarkistaMuutokset()" method="post" action="KysymysPoisto">
+		<table id="suodatus">
+			<tr><th colspan="2">Suodatus</th></tr>
+			<tr><td class="text"><input id="suodatin" type="text" placeholder="Suodata kysymyksiä..." onkeyup="suodata()"></td></tr>
+		</table>
+		<form id="kysymysForm" onsubmit="return tarkistaMuutokset()" method="post" action="Kysymyshallinta">
 			<table id="kysymysLista">
 				<tr id="tableHeader">
 					<th class="index">#</th>
