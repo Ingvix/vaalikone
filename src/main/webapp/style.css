@@ -109,12 +109,19 @@ th[class="index"] {
 	text-align: center;
 }
 
+#poista {
+	width: 1px;
+}
+
 .text {
 	padding: 0;
 }
 
+.dataRow {
+	height: 22px;
+}
+
 .checkbox {
-	width: 1px;
 	text-align: center;
 }
 
@@ -125,4 +132,18 @@ th[class="index"] {
 #tallennaBtn {
 	display: block;
 	margin: 10px auto;
+}
+
+#rullaus {
+	overflow: scroll;
+	overflow-x: hidden;
+	height: 231px;
+	resize: vertical;
+}
+#rullaus table {
+	width: 100%;
+	border-collapse: collapse;
+}
+#rullatd {
+	padding: 0;
 }

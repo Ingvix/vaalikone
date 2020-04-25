@@ -1,6 +1,16 @@
-/**
- * 
- */
+window.onload = tasaaSarakkeet;
+
+function tasaaSarakkeet() {
+	var otsake = document.getElementById("tableHeader")
+	var risuaita = otsake.firstElementChild
+	var poista = risuaita.nextElementSibling
+	var numero = document.querySelector("td[class='index']")
+	var valinta = numero.nextElementSibling
+
+	risuaita.style.width = numero.offsetWidth - 8 + "px"
+	valinta.style.width = poista.offsetWidth - 9 + "px"
+}
+
 function palautaKysymys(button) {
 	var kysymysBoxi = button.parentElement.previousElementSibling.firstElementChild
 	kysymysBoxi.value = kysymysBoxi.dataset.original
@@ -28,7 +38,7 @@ function tarkistaMuutokset() {
 function suodata() {
 	var syote = document.getElementById("suodatin");
 	var suodatin = syote.value.toUpperCase();
-	var lista = document.getElementById("kysymysLista");
+	var lista = document.getElementById("rullaLista");
 	var tr = lista.getElementsByTagName("tr");
 
 	for (i = 0; i < tr.length; i++) {
