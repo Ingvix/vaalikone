@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link href="ohjauspaneeli.css" rel="stylesheet" type="text/css">
+<title>Ohjauspaneeli</title>
+</head>
+<body>
+
+ <div id="container">
+            
+            <img id="headerimg" src="Logo.png"/>
+            <div class="kysymys">
+                <h1>Ohjauspaneeli</h1>
+            </div>
+            <br>
+            <h1>Lisää kysymys</h1>
+                <br>
+                                <form name="loginForm" method="post" action="UusiKysymys">
+                                 Numero: <input type="text" name="kysymysid"/> <br><br>
+   								 Kysymys: <input type="text" name="kysymys" style="height: 150px;"/> <br/>
+    								<input type="submit" value="lisaa" />
+									</form>
+                                
+                                <br>
+                                 
+                                
+                                 <h1>Poista kysymys</h1>
+                				<br>
+                                <form name="loginForm" method="post" action="loginServlet">
+    								<input type="submit" value="Poista" />
+									</form>
+   
+        </div>
+
+</body>
+</html>

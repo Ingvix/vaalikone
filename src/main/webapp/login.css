@@ -1,0 +1,73 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#container{
+	width: 800px;
+	float: none;
+	border-radius: 20px;
+	background-color: rgb(153, 168, 185);
+	-webkit-box-shadow: 4px 4px 39px -8px #000000;
+	box-shadow: 4px 4px 39px -8px #000000;
+	height: auto;
+	margin-top: 100px;
+	margin-bottom: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px;
+        font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body {
+	background-image: linear-gradient(to bottom, #f57800 40%, #00b5e5 95%);
+	background-repeat: no-repeat;
+	padding: 10;
+
+}
+#grad {
+	background-image: linear-gradient(to bottom, black, blue);
+}
+#headerimg {
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	height: 144px;
+	display: block;
+	padding-top: 10px;
+}
+#kysymyscont {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	display: block;
+	height: 150px;
+}
+.kysymys{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+        padding-top: 50px;
+	height: 100px;
+	color: #3E3E3E;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	text-align: center;
+}
+#submitnappi{
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	height: 50px;
+	display: block;
+	margin-top: 20px;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-style: normal;
+	font-size: large;
+}
+#vastausformi{
+	height: 100px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	}
+	
