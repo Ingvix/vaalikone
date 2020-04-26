@@ -37,7 +37,7 @@ public class Kayttaja implements Serializable {
      * Kayttaja-olioon tallennetaan vaalikoneen käyttäjän tietoja.
      */
     public Kayttaja(int maara) {
-    	this.maara = maara;
+    	this.maara = maara+1;
     }
 
     public void taytaVastauksetJaPisteet(int maara) {
