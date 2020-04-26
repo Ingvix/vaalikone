@@ -21,7 +21,6 @@
 		<h1>Kysymyksen lisäys</h1>
 		<br>
 		<form name="loginForm" method="post" action="UusiKysymys">
-			Numero: <input type="text" name="kysymysid" /> <br />
 			Kysymys: <input type="text" name="kysymys" /> <br /> <input type="submit" value="Lisää" />
 		</form>
 
