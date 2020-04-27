@@ -204,7 +204,7 @@ public class Vaalikone extends HttpServlet {
         if ("haeEhdokas".equals(strFunc)) {
             //luetaan url-parametristä "top-listan järjestysnumero". Jos ei määritelty, haetaan PARAS vaihtoehto.
             String strJarjestysnumero = request.getParameter("numero");
-            Integer jarjestysnumero = 0;
+            Integer jarjestysnumero = 1;
             if (strJarjestysnumero != null) {
                 jarjestysnumero = Integer.parseInt(strJarjestysnumero);
             }
