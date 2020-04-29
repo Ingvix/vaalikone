@@ -28,7 +28,7 @@
                 Double prosentit = (double) Math.round(pisteet / (3 * 19) * 100);
                 Integer jarjestysnumero = (Integer) request.getAttribute("jarjestysnumero");
 
-                if (jarjestysnumero > 0) {%>
+                if (jarjestysnumero > 1) {%>
             <a href="Vaalikone?func=haeEhdokas&numero=<%= jarjestysnumero - 1%>">Edellinen ehdokas</a>&nbsp; 
             <% }
                 if (jarjestysnumero < 18) {%>
@@ -39,7 +39,7 @@
             %>
 
             <h2>Numero: <%= seParasEhdokas.getEhdokasId()%></h2>
-            <h3>Sinulle <%= jarjestysnumero+1 %>. paras ehdokas</h3>
+            <h3>Sinulle <%= jarjestysnumero %>. paras ehdokas</h3>
             <h3>Yhteensopivuus: <%= prosentit%>%</h3>
             <ul>
                 <li><b>Nimi:</b><%= seParasEhdokas.getEtunimi()%> <%= seParasEhdokas.getSukunimi()%></li>

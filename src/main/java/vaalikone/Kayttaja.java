@@ -28,31 +28,24 @@ public class Kayttaja implements Serializable {
 	 */
 
 //	private final ArrayList<Integer> vastaus = new ArrayList<>(20);
-	private ArrayList<Integer> vastaus = new ArrayList<>(20);
-    ArrayList<Tuple<Integer, Integer>> pisteet = new ArrayList<>(20);
+	private ArrayList<Integer> vastaus = new ArrayList<>();
+    ArrayList<Tuple<Integer, Integer>> pisteet = new ArrayList<>();
+	private int maara;
     private final static Logger logger = Logger.getLogger(Loki.class.getName());
 
     /**
      * Kayttaja-olioon tallennetaan vaalikoneen käyttäjän tietoja.
      */
-//    public Kayttaja() {
-//
-//        //täytelläänhän listat valmiiksi
-//        for (int i = 0; i < 20; i++) {
-//            this.vastaus.add(0);
-//            this.pisteet.add(new Tuple<>(0, 0));
-//        }
-//
-//    }
+    public Kayttaja(int maara) {
+    	this.maara = maara+1;
+    }
 
-    public void taytaVastauksetJaPisteet() {
-
-		//täytelläänhän listat valmiiksi
-        for (int i = 0; i < 20; i++) {
+    public void taytaVastauksetJaPisteet(int maara) {
+        //täytelläänhän listat valmiiksi
+        for (int i = 0; i < maara; i++) {
             this.vastaus.add(0);
             this.pisteet.add(new Tuple<>(0, 0));
         }
-
     }
     /**
      *
@@ -102,11 +95,11 @@ public class Kayttaja implements Serializable {
      * @param index kysymyksen numero
      * @param vastaus vastauksen arvo
      */
-    public void addVastaus(Integer index, Integer vastaus) {
+    public void addVastaus(Integer id, Integer vastaus) {
     	if (this.vastaus.size()==0) {
-    		taytaVastauksetJaPisteet();
+    		taytaVastauksetJaPisteet(maara);
     	}
-        this.vastaus.set(index, vastaus);
+    	this.vastaus.set(id, vastaus);
     }
 
     /**

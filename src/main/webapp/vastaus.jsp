@@ -18,16 +18,18 @@
 <body>
 
 <div id="container">
-<img id="headerimg" src="images/Logo.png" width="500" height="144" alt=""/>
+<img id="headerimg" src="Logo.png" width="500" height="144" alt=""/>
 
 
 
  <%
             @SuppressWarnings("unchecked") 
             List<Kysymykset> kysymykset = (List<Kysymykset>)request.getAttribute("kysymykset");
+ 			int index = (int)request.getAttribute("numero");
+ 			int maara = (int)request.getAttribute("maara");
             for (Kysymykset kysymys : kysymykset) { %>
             <div class="kysymys">
-                <%= kysymys.getKysymysId() %> / 19 <br>
+                <%= index %> / <%= maara %> <br>
                 <%= kysymys.getKysymys() %>
                  </div>
                 <form action="Vaalikone" id="vastausformi">
@@ -37,6 +39,7 @@
                     <label>4</label><input type="radio" name="vastaus" value="4" />
                     <label>5</label><input type="radio" name="vastaus" value="5" />
                     <input type="hidden" name="q" value="<%= kysymys.getKysymysId() %>">
+                    <input type="hidden" name="i" value="<%= index %>">
                     <input type="submit" id="submitnappi" value="Vastaa" />
                 </form>
                     <div class="kysymys"><small>1=Täysin eri mieltä 2=Osittain eri mieltä 3=En osaa sanoa, 4=Osittain samaa mieltä 5=Täysin samaa mieltä</small></div>

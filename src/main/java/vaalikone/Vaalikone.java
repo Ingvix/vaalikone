@@ -55,6 +55,8 @@ public class Vaalikone extends HttpServlet {
             throws ServletException, IOException {
 
         int kysymys_id;
+        int kysymys_i;
+		List<Kysymykset> kysymysList = null;
 
         // hae http-sessio ja luo uusi jos vanhaa ei ole vielä olemassa
         HttpSession session = request.getSession(true);
@@ -62,12 +64,6 @@ public class Vaalikone extends HttpServlet {
         //hae käyttäjä-olio http-sessiosta
         Kayttaja usr = (Kayttaja) session.getAttribute("usrobj");
 
-        //jos käyttäjä-oliota ei löydy sessiosta, luodaan sinne sellainen
-        if (usr == null) {
-            usr = new Kayttaja();
-            logger.log(Level.FINE, "Luotu uusi k�ytt�j�olio");
-            session.setAttribute("usrobj", usr);
-        }
         EntityManagerFactory emf=null;
         EntityManager em = null;
         try {
@@ -81,6 +77,17 @@ public class Vaalikone extends HttpServlet {
           	
           	return;
         }
+		Query q_suurin = em.createQuery(
+				"SELECT MAX(k.kysymysId) FROM Kysymykset k"
+		);
+		int suurin = (int)q_suurin.getResultList().get(0);
+        
+        //jos käyttäjä-oliota ei löydy sessiosta, luodaan sinne sellainen
+        if (usr == null) {
+            usr = new Kayttaja(suurin);
+            logger.log(Level.FINE, "Luotu uusi k�ytt�j�olio");
+            session.setAttribute("usrobj", usr);
+        }
         
         //hae url-parametri func joka määrittää toiminnon mitä halutaan tehdä.
         //func=haeEhdokas: hae tietyn ehdokkaan tiedot ja vertaile niitä käyttäjän vastauksiin
@@ -89,8 +96,11 @@ public class Vaalikone extends HttpServlet {
 
         if (strFunc == null) {
 
-            //hae parametrinä tuotu edellisen kysymyksen nro
+            //hae parametrinä tuotu edellisen kysymyksen id
             String strKysymys_id = request.getParameter("q");
+
+            //hae parametrinä tuotu edellisen kysymyksen nro
+            String strKysymys_i = request.getParameter("i");
 
             //hae parametrina tuotu edellisen kysymyksen vastaus
             String strVastaus = request.getParameter("vastaus");
@@ -98,81 +108,95 @@ public class Vaalikone extends HttpServlet {
             // Jos kysymyksen numero (kysId) on asetettu, haetaan tuo kysymys
             // muuten haetaan kysnro 1
             if (strKysymys_id == null) {
-                kysymys_id = 1;
+                kysymys_id = 0;
+                kysymys_i = 1;
             } else {
                 kysymys_id = parseInt(strKysymys_id);
+                kysymys_i = parseInt(strKysymys_i);
                 //jos vastaus on asetettu, tallenna se session käyttäjä-olioon
                 if (strVastaus != null) {
                     usr.addVastaus(kysymys_id, parseInt(strVastaus));
                 }
 
                 //määritä seuraavaksi haettava kysymys
-                kysymys_id++;
+                kysymys_i++;
             }
 
             //jos kysymyksiä on vielä jäljellä, hae seuraava
-            if (kysymys_id < 20) {
-                try {
-                    //Hae haluttu kysymys tietokannasta
-                    Query q = em.createQuery(
-                            "SELECT k FROM Kysymykset k WHERE k.kysymysId=?1");
-                    q.setParameter(1, kysymys_id);
-                    //Lue haluttu kysymys listaan
-                    List<Kysymykset> kysymysList = q.getResultList();
-                    request.setAttribute("kysymykset", kysymysList);
-                    request.getRequestDispatcher("/vastaus.jsp")
-                            .forward(request, response);
-
-                } finally {
-                    // Sulje tietokantayhteys
-                    if (em.getTransaction().isActive()) {
-                        em.getTransaction().rollback();
-                    }
-                    em.close();
-                }
-
+			try {
+				//Hae kysymyksien määrä tietokannasta
+				Query q = em.createQuery(
+						"SELECT COUNT(k) FROM Kysymykset k");
+				int maara = ((Long)q.getSingleResult()).intValue();
+				//Hae haluttu kysymys tietokannasta
+				q = em.createQuery(
+						"SELECT k FROM Kysymykset k WHERE k.kysymysId = (SELECT MIN(k.kysymysId) FROM Kysymykset k WHERE k.kysymysId > ?1)");
+				q.setParameter(1, kysymys_id);
+				//Lue haluttu kysymys listaan
+				kysymysList = q.getResultList();
+				if (!kysymysList.isEmpty()) {
+					try {
+						request.setAttribute("maara", maara);
+						request.setAttribute("kysymykset", kysymysList);
+						request.setAttribute("numero", kysymys_i);
+						request.getRequestDispatcher("/vastaus.jsp")
+								.forward(request, response);
+					}
+					finally {
+						// Sulje tietokantayhteys
+						if (em.getTransaction().isActive()) {
+							em.getTransaction().rollback();
+						}
+						em.close();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
                 //jos kysymykset loppuvat, lasketaan tulos!
-            } else {
+			if (kysymysList != null) {
+				if (kysymysList.isEmpty()) {
 
-                //Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
-                for (int i = 0; i < 20; i++) {
-                    usr.pisteet.set(i, new Tuple<>(0, 0));
-                }
+					//Tyhjennetään piste-array jotta pisteet eivät tuplaannu mahdollisen refreshin tapahtuessa
+					for (int i = 0; i < 20; i++) {
+						usr.pisteet.set(i, new Tuple<>(0, 0));
+					}
 
-                //Hae lista ehdokkaista
-                Query qE = em.createQuery(
-                        "SELECT e.ehdokasId FROM Ehdokkaat e"
-                );
-                List<Integer> ehdokasList = qE.getResultList();
+					//Hae lista ehdokkaista
+					Query qE = em.createQuery(
+							"SELECT e.ehdokasId FROM Ehdokkaat e"
+					);
+					List<Integer> ehdokasList = qE.getResultList();
 
-                //iteroi ehdokaslista läpi
-                for (int i = 1; i < ehdokasList.size(); i++) {
+					//iteroi ehdokaslista läpi
+					for (int i = 1; i < ehdokasList.size(); i++) {
 
-                    //Hae lista ehdokkaiden vastauksista
-                    Query qV = em.createQuery(
-                            "SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
-                    qV.setParameter(1, i);
-                    List<Vastaukset> vastausList = qV.getResultList();
+						//Hae lista ehdokkaiden vastauksista
+						Query qV = em.createQuery(
+								"SELECT v FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
+						qV.setParameter(1, i);
+						List<Vastaukset> vastausList = qV.getResultList();
 
-                    //iteroi vastauslista läpi
-                    for (Vastaukset eVastaus : vastausList) {
-                        int pisteet;
+						//iteroi vastauslista läpi
+						for (Vastaukset eVastaus : vastausList) {
+							int pisteet;
 
-                        //hae käyttäjän ehdokaskohtaiset pisteet
-                        pisteet = usr.getPisteet(i);
+							//hae käyttäjän ehdokaskohtaiset pisteet
+							pisteet = usr.getPisteet(i);
 
-                        //laske oman ja ehdokkaan vastauksen perusteella pisteet 
-                        pisteet += laskePisteet(usr.getVastaus(i), eVastaus.getVastaus());
+							//laske oman ja ehdokkaan vastauksen perusteella pisteet 
+							pisteet += laskePisteet(usr.getVastaus(i), eVastaus.getVastaus());
 
-                        logger.log(Level.INFO, "eID: {0} / k: {1} / kV: {2} / eV: {3} / p: {4}", new Object[]{i, eVastaus.getVastauksetPK().getKysymysId(), usr.getVastaus(i), eVastaus.getVastaus(), pisteet});
-                        usr.addPisteet(i, pisteet);
-                    }
+							logger.log(Level.INFO, "eID: {0} / k: {1} / kV: {2} / eV: {3} / p: {4}", new Object[]{i, eVastaus.getVastauksetPK().getKysymysId(), usr.getVastaus(i), eVastaus.getVastaus(), pisteet});
+							usr.addPisteet(i, pisteet);
+						}
 
-                }
+					}
 
-                //siirrytään hakemaan paras ehdokas
-                strFunc = "haeEhdokas";
-            }
+					//siirrytään hakemaan paras ehdokas
+					strFunc = "haeEhdokas";
+				}
+			}
 
         }
 
