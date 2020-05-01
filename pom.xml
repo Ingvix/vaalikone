@@ -5,8 +5,8 @@
   <packaging>war</packaging>
   <version>0.1.0-SNAPSHOT</version>
 
-  <groupId>rest-task1</groupId>
-  <artifactId>rest-task1</artifactId>
+  <groupId>vaalikones</groupId>
+  <artifactId>vaalikones</artifactId>
 
   <properties>
     <appengine.maven.plugin.version>2.2.0</appengine.maven.plugin.version>
