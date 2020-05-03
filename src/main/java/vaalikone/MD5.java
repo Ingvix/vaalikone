@@ -27,43 +27,7 @@ public class MD5 extends HttpServlet {
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
     
-    
-    
-    
-    
-    
-    
-    
-    
-//    
-//    Connection connection;
-//    PreparedStatement ps;
-//    try {
-//        connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/vaalikone", "root", "Ranchero979797");
-//        ps = connection.prepareStatement("SELECT `username`, `password` FROM `users` WHERE `username` = ? AND `password` = ?");
-//        ps.setString(1, request.getParameter("username"));
-//        ps.setString(2, request.getParameter("password"));
-//        ResultSet result = ps.executeQuery();
-//        if(result.next()){
-//        	response.sendRedirect("/Ohjauspaneeli.html");
-//        }
-//        else{
-//        	response.getWriter().print("Vï¿½ï¿½rï¿½ tunnukset");
-//        }
-//    } catch (Exception e) {
-//       System.err.println("Got an exception! ");
-//    	System.err.println(e.getMessage());
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+ 
     
     String adminusername = "admin";
     String adminpassword = "admin";
@@ -71,10 +35,10 @@ public class MD5 extends HttpServlet {
    
     
     if (request.getParameter("password").equals(admincryptedpassword) && request.getParameter("username").equals(adminusername)) {
-    	response.sendRedirect("Ohjauspaneeli");
+    	response.sendRedirect("Valinta.html");
     }
     else if (request.getParameter("password") != admincryptedpassword || request.getParameter("username") != adminusername) {
-    	response.getWriter().print("VÃ¤Ã¤rÃ¤t tunnukset");
+    	response.getWriter().print("Väärät tunnukset");
     }
     
     
