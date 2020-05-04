@@ -29,8 +29,8 @@ public class Ohjauspaneeli extends HttpServlet {
 		  List<Kysymykset> kysymykset = (List<Kysymykset>) query.getResultList();
 		  request.setAttribute("Kysymykset", kysymykset);
 		  request.getRequestDispatcher("/Ohjauspaneeli.jsp").forward(request, response);
-	  } catch (Exception e) {
 		  em.close();
+	  } catch (Exception e) {
 	  }
   }
 }
