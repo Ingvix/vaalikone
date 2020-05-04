@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+body {
+	background-image: linear-gradient(to bottom, #00b5e5 40%, #f57800 95%);
+	background-repeat: no-repeat;
+	padding: 10;
+
+}
+#grad {
+	background-image: linear-gradient(to bottom, black, blue);
+}
+
+#container{
+	width: 800px;
+	float: none;
+	border-radius: 20px;
+	background-color: rgb(153, 168, 185);
+	-webkit-box-shadow: 4px 4px 39px -8px #000000;
+	box-shadow: 4px 4px 39px -8px #000000;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url(images/concrete_seamless.png);
+	padding: 20px;
+        font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#headerimg {
+	margin-left:100px;
+	margin-right: 100px;
+	width: 600px;
+	height: 180px;
+	display: block;
+	padding-top: 10px;
+}
+#kysymyscont {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	display: block;
+	height: 150px;
+}
+.kysymys{
+	width: 600px;
+	margin-left: auto;
+	margin-bottom: 40px;;
+	margin-right: auto;
+    padding-top: 50px;
+	height: 100px;
+	color: #3E3E3E;
+	font-size: 28px;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	text-align: center;
+}
+#submitnappi{
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 150px;
+	height: 50px;
+	display: block;
+	margin-top: 20px;
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-style: normal;
+	font-size: large;
+}
+#vastausformi{
+	height: 100px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#kysymysLista {
+	counter-reset: rowNumber;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#suodatus {
+	border-collapse: collapse;
+	margin: 0 0 4px 0;
+}
+
+.text input {
+	width: calc(100% - 4px);
+}
+
+td, th {
+	border: 1px solid #99A8B9;
+	background-image: linear-gradient(to bottom, #b3c0ce, #99A8B9);
+	text-align : left;
+	padding: 0 4px 0 4px;
+	text-align: left;
+}
+
+.index {
+	width: 1px;
+	text-align: right;
+	font-family: "Courier New", Courier, monospace;
+}
+
+th[class="index"] {
+	text-align: center;
+}
+
+#poista {
+	width: 1px;
+}
+
+.dataRow {
+	height: 22px;
+}
+
+.checkbox {
+	text-align: center;
+}
+
+.button {
+	padding: 0;
+	width: 1px;
+}
+#tallennaBtn {
+	display: block;
+	margin: 10px auto;
+}
+
+#rullaus {
+	overflow: scroll;
+	overflow-x: hidden;
+	height: 231px;
+	resize: vertical;
+}
+#rullaus table {
+	width: 100%;
+	border-collapse: collapse;
+}
+#rullatd {
+	padding: 0;
+}
+	

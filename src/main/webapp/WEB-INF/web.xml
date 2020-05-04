@@ -16,6 +16,21 @@
     <servlet-name>Ohjauspaneeli</servlet-name>
     <servlet-class>Ohjauspaneeli.Ohjauspaneeli</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Ehdokaspaneeli</servlet-name>
+    <servlet-class>Ohjauspaneeli.Ehdokaspaneeli</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>ehdokasservice</servlet-name>
+	<servlet-class>
+		org.glassfish.jersey.servlet.ServletContainer
+	</servlet-class>
+	<init-param>
+	  <param-name>jersey.config.server.provider.packages</param-name>
+	  <param-value>ehdokasservice</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>Vaalikone</servlet-name>
@@ -24,6 +39,14 @@
   <servlet-mapping>
     <servlet-name>Ohjauspaneeli</servlet-name>
     <url-pattern>/Ohjauspaneeli</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Ehdokaspaneeli</servlet-name>
+    <url-pattern>/Ehdokaspaneeli</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  <servlet-name>ehdokasservice</servlet-name>
+  <url-pattern>/ehdokasservice/*</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>30</session-timeout>
