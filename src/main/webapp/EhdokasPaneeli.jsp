@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List, persist.Ehdokkaat"%>
+<%@page import="java.util.List, persist.Ehdokkaat, ehdokasservice.EhdokasService"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,8 +17,22 @@
 		<div class="kysymys">
 			<h1>Ehdokaspaneeli</h1>
 		</div>
+		<h1>Ehdokkaiden lisäys</h1>
+		<form method="post" action="/ehdokasservice/addehdokas"><br>
+			Etunimi <input type="text" name="etunimi" /><br>
+			Sukunimi <input type="text" name="sukunimi" /><br>
+			Puolue <input type="text" name="puolue" /><br>
+			Ikä <input type="text" name="ika" /><br>
+			Kotipaikkakunta <input type="text" name="kotipaikkakunta" /><br>
+			Ammatti <input type="text" name="ammatti" /><br>
+			Miksi eduskuntaan? <input type="text" name="miksiEduskuntaan" /><br>
+			Mitä asioita haluat edistää? <input type="text" name="MitaAsioitaHaluatEdistaa" /><br>
+			<input type="submit" value="Lisää"/>
+			<br>
+		</form>
 
 		<h1>Ehdokkaiden hallinta</h1>
+		
 		<table id="suodatus">
 			<tr>
 				<th colspan="3">Suodatus</th>
