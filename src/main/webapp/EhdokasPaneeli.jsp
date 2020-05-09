@@ -21,11 +21,17 @@
 		<h1>Ehdokkaiden hallinta</h1>
 		<table id="suodatus">
 			<tr>
-				<th colspan="2">Suodatus</th>
+				<th colspan="3">Suodatus</th>
 			</tr>
 			<tr>
-				<td class="text"><input id="suodatin" type="text" placeholder="Suodata ehdokkaita..." onkeyup="suodata()"></td>
+				<td class="text" colspan="3"><input id="suodatin" type="text" placeholder="Suodata ehdokkaita..." onkeyup="suodata()"></td>
 			</tr>
+			<tr>
+				<td><label><input class="ehto" type="checkbox" value=2 checked>Nimi</label></td>
+				<td><label><input class="ehto" type="checkbox" value=3 checked>Puolue</label></td>
+				<td><label><input class="ehto" type="checkbox" value=4 checked>Paikkakunta</label></td>
+			</tr>
+			
 		</table>
 		<form id="kysymysForm" onsubmit="return tarkistaMuutokset()" method="post" action="Kysymyshallinta">
 			<table id="kysymysLista">
@@ -56,9 +62,9 @@
 								<tr class="dataRow">
 									<td class="index"><%=i%></td>
 									<td class="checkbox"><input type="checkbox" name="kysymys" value="<%=id%>"></td>
-									<td class="text"><label><%=nimi%></label></td>
-									<td class="text"><label><%=puolue%></label></td>
-									<td class="text"><label><%=paikkakunta%></label></td>
+									<td><label><%=nimi%></label></td>
+									<td><label><%=puolue%></label></td>
+									<td><label><%=paikkakunta%></label></td>
 									<td class="button"><a href="http://localhost:8080/ehdokasservice/edit/<%=id%>"><button type="button">Muokkaa</button></a></td>
 								</tr>
 								<%

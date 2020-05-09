@@ -112,6 +112,10 @@ th[class="index"] {
 	width: 1px;
 }
 
+.text {
+	padding: 0;
+}
+
 .dataRow {
 	height: 22px;
 }
