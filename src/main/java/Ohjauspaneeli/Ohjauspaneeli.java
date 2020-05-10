@@ -20,15 +20,17 @@ public class Ohjauspaneeli extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
+	  EntityManagerFactory emfactory = null;
+	  EntityManager em = null;
 	  try {
-		  EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "vaalikones" );
-		  EntityManager em = emfactory.createEntityManager();
+		  emfactory = Persistence.createEntityManagerFactory( "vaalikones" );
+		  em = emfactory.createEntityManager();
 		  Query query = em.createNamedQuery("Kysymykset.findAll");
 		  List<Kysymykset> kysymykset = (List<Kysymykset>) query.getResultList();
 		  request.setAttribute("Kysymykset", kysymykset);
 		  request.getRequestDispatcher("/Ohjauspaneeli.jsp").forward(request, response);
+		  em.close();
 	  } catch (Exception e) {
-		  
 	  }
   }
 }
