@@ -57,4 +57,6 @@ function deleteData(){
     xhttp.open("POST","./ehdokasservice/delete/"+deleteId,true);
     
     xhttp.send();
-    }
+}
+
+
