@@ -38,6 +38,19 @@ public class EhdokasService {
 			return ehdokkaat;
 	}
 	
+	@GET
+	@Path("/getEhdokas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Ehdokkaat getEhdokas() {
+			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("vaalikones");
+			EntityManager em = emfactory.createEntityManager();
+			Query query = em.createNamedQuery("Ehdokkaat.findByEhdokasId");
+			List<Ehdokkaat> ehdokasList = (List<Ehdokkaat>) query.getResultList();
+			Ehdokkaat ehdokas = ehdokasList.get(0);
+			em.close();
+			return ehdokas;
+	}
+
 	@POST
 	@Path("/addehdokas")
 	@Produces(MediaType.APPLICATION_JSON)
