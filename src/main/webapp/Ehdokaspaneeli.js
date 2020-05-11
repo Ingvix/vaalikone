@@ -38,3 +38,25 @@ function suodata() {
 		tr[i].style.display = arvo
 	}
 }
+
+function deleteData(){
+
+
+	var xhttp = new XMLHttpRequest();
+
+	var deleteId = document.getElementById("eID").value;
+	
+
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          alert("Poistit ehdokkaan " + deleteId);
+          window.location="http://localhost:8080/Ehdokaspaneeli"
+      }
+   
+    };
+    xhttp.open("POST","./ehdokasservice/delete/"+deleteId,true);
+    
+    xhttp.send();
+}
+
+

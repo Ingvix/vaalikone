@@ -47,10 +47,10 @@
 			</tr>
 			
 		</table>
-		<form id="kysymysForm" onsubmit="return tarkistaMuutokset()" method="post" action="Kysymyshallinta">
+		<form id="kysymysForm" onsubmit='return false;' method="post" action="#">
 			<table id="kysymysLista">
 				<tr id="tableHeader">
-					<th class="index">#</th>
+					<th class="index">Id</th>
 					<th id="poista">Poista</th>
 					<th>Nimi</th>
 					<th>Puolue</th>
@@ -74,8 +74,8 @@
 									id = ehdokas.getEhdokasId();
 								%>
 								<tr class="dataRow">
-									<td class="index"><%=i%></td>
-									<td class="checkbox"><input type="checkbox" name="kysymys" value="<%=id%>"></td>
+									<td class="index"><%=id%></td>
+									<td class="checkbox"><input type="checkbox" id="eID" name="kysymys" value="<%=id%>" ></td>
 									<td><label><%=nimi%></label></td>
 									<td><label><%=puolue%></label></td>
 									<td><label><%=paikkakunta%></label></td>
@@ -90,10 +90,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><input id="tallennaBtn" type="submit" value="Poista ehdokkaita"></td>
+					<td colspan="6"><input type='button' name='ok' value='Poista' onclick='deleteData();'></td>
 				</tr>
 			</table>
 		</form>
+		
 	</div>
 
 </body>

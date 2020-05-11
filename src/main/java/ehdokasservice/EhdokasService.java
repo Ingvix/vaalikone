@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-
+import dao.EhdokasDao;
 import persist.Ehdokkaat;
 
 @Path("/")
@@ -101,4 +101,23 @@ public class EhdokasService {
 			e.printStackTrace();
 		}
 	}
+	
+	@POST
+    @Path("/delete/{id}")
+    public boolean deleteEhdokas(@PathParam("id") int id) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("vaalikones");
+		EntityManager em = emfactory.createEntityManager();
+	       
+	     
+	        Ehdokkaat b=em.find(Ehdokkaat.class, id);
+	        if (b!=null) {
+	            em.getTransaction().begin();
+	            em.remove(b);
+	            em.getTransaction().commit();
+	            
+	        }
+	  
+	    
+        return EhdokasDao.deleteEhdokas(id);
+    }
 }

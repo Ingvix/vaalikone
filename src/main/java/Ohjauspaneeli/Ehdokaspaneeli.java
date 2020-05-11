@@ -19,7 +19,8 @@ public class Ehdokaspaneeli extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
-	  String uri = "http://localhost:8080/ehdokasservice/getall";
+
+	  String uri = "http://localhost:3306/ehdokasservice/getall";
 	  Client client = ClientBuilder.newClient();
 	  WebTarget wt = client.target(uri);
 	  Builder b = wt.request();
