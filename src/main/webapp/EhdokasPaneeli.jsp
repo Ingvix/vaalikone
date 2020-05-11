@@ -50,7 +50,7 @@
 		<form id="kysymysForm" onsubmit='return false;' method="post" action="#">
 			<table id="kysymysLista">
 				<tr id="tableHeader">
-					<th class="index">#</th>
+					<th class="index">Id</th>
 					<th id="poista">Poista</th>
 					<th>Nimi</th>
 					<th>Puolue</th>
