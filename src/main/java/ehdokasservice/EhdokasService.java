@@ -143,21 +143,47 @@ public class EhdokasService {
 }
 	
 	@POST
-    @Path("/delete/{id}")
-    public boolean deleteEhdokas(@PathParam("id") int id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("vaalikones");
-		EntityManager em = emfactory.createEntityManager();
-	       
-	     
-	        Ehdokkaat b=em.find(Ehdokkaat.class, id);
-	        if (b!=null) {
-	            em.getTransaction().begin();
-	            em.remove(b);
-	            em.getTransaction().commit();
-	            
-	        }
-	  
-	    
-        return EhdokasDao.deleteEhdokas(id);
+    @Path("/delete")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response deleteEhdokas(@FormParam("ehdokas") List<String> ehdokaspoistot ) {
+	  EntityManagerFactory emfactory = null;
+	  EntityManager em = null;
+	  EntityTransaction etx = null; 
+	  try {
+		  emfactory = Persistence.createEntityManagerFactory( "vaalikones" );
+		  em = emfactory.createEntityManager();
+		  etx = em.getTransaction();
+		  etx.begin();
+		  for (String id : ehdokaspoistot) {
+			  
+			  int intId = Integer.parseInt(id);
+			  Query e = em.createQuery(
+					  "DELETE FROM Ehdokkaat e WHERE e.ehdokasId=?1");
+			  e.setParameter(1, intId);
+			  e.executeUpdate();
+			  Query v = em.createQuery(
+					  "DELETE FROM Vastaukset v WHERE v.vastauksetPK.ehdokasId=?1");
+			  v.setParameter(1, intId);
+			  v.executeUpdate();
+
+		  }
+		  etx.commit();
+		  em.close();
+	  } catch (Exception e) {
+		  etx.rollback();
+		  em.close();
+		  e.printStackTrace();
+	  }
+
+	    java.net.URI location;
+	    Response response = null;
+		try {
+			location = new java.net.URI("/Ehdokaspaneeli");
+		    response = Response.temporaryRedirect(location).build();
+	} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
     }
 }

@@ -33,7 +33,7 @@
 		%>
 		<h1>Ehdokkaan muokkaus: <%=etunimi%> <%=sukunimi%></h1>
 
-		<form id="kysymysForm" method="post" action="/ehdokasservice/editehdokas/<%=id%>">
+		<form id="kysymysForm" method="post" onsubmit="return tarkistaMuutokset()" action="/ehdokasservice/editehdokas/<%=id%>">
 			<table id="muokkausForm">
 				<tr>
 					<th class="lyhyt">Etunimi</th>
@@ -66,21 +66,21 @@
 					<td class="button"><button type="button" onclick="palauta(this)">Palauta</button></td>
 				</tr>
 				<tr>
-					<th colspan="2">Miksi eduskuntaan?</th>
+					<th colspan="3">Miksi eduskuntaan?</th>
+				</tr>
+				<tr>
+					<td colspan="2" class="text"><textarea name="miksiEduskuntaan" rows=4 data-original="<%=miksiEduskuntaan%>" onkeyup="tarkistaVastaavuus(this)"><%=miksiEduskuntaan%></textarea></td>
 					<td class="button"><button type="button" onclick="palauta(this)">Palauta</button></td>
 				</tr>
 				<tr>
-					<td colspan="3" class="text"><textarea name="miksiEduskuntaan" rows=4 data-original="<%=miksiEduskuntaan%>" onkeyup="tarkistaVastaavuus(this)"><%=miksiEduskuntaan%></textarea></td>
+					<th colspan="3">Mitä asioita haluat edistää?</th>
 				</tr>
 				<tr>
-					<th colspan="2">Mitä asioita haluat edistää?</th>
+					<td colspan="2" class="text"><textarea name="mitaAsioitaHaluatEdistaa" rows=4 data-original="<%=mitaAsioitaHaluatEdistaa%>" onkeyup="tarkistaVastaavuus(this)"><%=mitaAsioitaHaluatEdistaa%></textarea></td>
 					<td class="button"><button type="button" onclick="palauta(this)">Palauta</button></td>
 				</tr>
 				<tr>
-					<td colspan="3" class="text"><textarea name="mitaAsioitaHaluatEdistaa" rows=4 data-original="<%=mitaAsioitaHaluatEdistaa%>" onkeyup="tarkistaVastaavuus(this)"><%=mitaAsioitaHaluatEdistaa%></textarea></td>
-				</tr>
-				<tr>
-					<td colspan="3"><input id="tallennaBtn" type="submit" value='Tallenna muutokset'></td>
+					<td colspan="2"><input id="tallennaBtn" type="submit" value='Tallenna muutokset'></td>
 				</tr>
 			</table>
 		</form>

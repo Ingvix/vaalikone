@@ -24,6 +24,25 @@ function tarkistaVastaavuus(textInput) {
 	} else textInput.style.backgroundColor = "yellow"
 }
 
+function tarkistaMuutokset() {
+	var kentat = document.querySelectorAll(".text input, .text textarea")
+	var onMuutoksia = false
+	for (let kentta of kentat) {
+		if (kentta.value == "") {
+			alert("Täytä kaikki kentät.")
+			return false
+		}
+		if (kentta.value != kentta.dataset.original) {
+			onMuutoksia = true
+			console.log(kentta)
+		}
+	}
+	if (!onMuutoksia) {
+		alert("Ei muutoksia.")
+	}
+	return onMuutoksia
+}
+
 function suodata() {
 	var syote = document.getElementById("suodatin")
 	var ehdot = [...document.getElementsByClassName("ehto")].filter(ehto => ehto.checked)
@@ -48,25 +67,3 @@ function suodata() {
 		tr[i].style.display = arvo
 	}
 }
-
-function deleteData(){
-
-
-	var xhttp = new XMLHttpRequest();
-
-	var deleteId = document.getElementById("eID").value;
-	
-
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          alert("Poistit ehdokkaan " + deleteId);
-          window.location="http://localhost:8080/Ehdokaspaneeli"
-      }
-   
-    };
-    xhttp.open("POST","./ehdokasservice/delete/"+deleteId,true);
-    
-    xhttp.send();
-}
-
-

@@ -39,24 +39,12 @@ function suodata() {
 	}
 }
 
-function deleteData(){
-
-
-	var xhttp = new XMLHttpRequest();
-
-	var deleteId = document.getElementById("eID").value;
-	
-
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          alert("Poistit ehdokkaan " + deleteId);
-          window.location="http://localhost:8080/Ehdokaspaneeli"
-      }
-   
-    };
-    xhttp.open("POST","./ehdokasservice/delete/"+deleteId,true);
-    
-    xhttp.send();
+function tarkistaMuutokset() {
+	var valinnat = document.querySelectorAll(".checkbox input")
+	for (let valinta of valinnat) {
+		if (valinta.checked) {
+			return true
+		}
+	}
+	return false
 }
-
-
