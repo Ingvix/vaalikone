@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import dao.EhdokasDao;
 import persist.Ehdokkaat;
 
@@ -39,12 +42,13 @@ public class EhdokasService {
 	}
 	
 	@GET
-	@Path("/getEhdokas")
+	@Path("/getEhdokas/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Ehdokkaat getEhdokas() {
+	public Ehdokkaat getEhdokas(@PathParam("id") int id) {
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("vaalikones");
 			EntityManager em = emfactory.createEntityManager();
 			Query query = em.createNamedQuery("Ehdokkaat.findByEhdokasId");
+			query.setParameter("ehdokasId", id);
 			List<Ehdokkaat> ehdokasList = (List<Ehdokkaat>) query.getResultList();
 			Ehdokkaat ehdokas = ehdokasList.get(0);
 			em.close();
@@ -53,13 +57,12 @@ public class EhdokasService {
 
 	@POST
 	@Path("/addehdokas")
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("application/x-www-form-urlencoded")
-	public void addEhdokas(@FormParam("etunimi") String etunimi, @FormParam("sukunimi") String sukunimi, 
+	public Response addEhdokas(@FormParam("etunimi") String etunimi, @FormParam("sukunimi") String sukunimi, 
 			@FormParam("ika") int ika, @FormParam("puolue") String puolue, 
 			@FormParam("kotipaikkakunta") String kotipaikkakunta, @FormParam("ammatti") String ammatti, 
 			@FormParam("miksiEduskuntaan") String miksiEduskuntaan, 
-			@FormParam("MitaAsioitaHaluatEdistaa") String MitaAsioitaHaluatEdistaa, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+			@FormParam("MitaAsioitaHaluatEdistaa") String MitaAsioitaHaluatEdistaa) {
 		Ehdokkaat ehdokas = new Ehdokkaat();
 		ehdokas.setEtunimi(etunimi);
 		ehdokas.setSukunimi(sukunimi);
@@ -75,32 +78,19 @@ public class EhdokasService {
 		em.persist(ehdokas);
 		em.getTransaction().commit();
 		em.close();
-//        File file=new File("ehdokkaat.dat");
-//		ArrayList<Ehdokkaat> ehdokkaat=new ArrayList<>();
-//		 try {
-//	            ehdokkaat.add(ehdokas);
-//	            FileOutputStream fos=new FileOutputStream(file);
-//	            ObjectOutputStream oos=new ObjectOutputStream(fos);
-//	            oos.writeObject(ehdokkaat);
-//	            oos.close();
-//	            fos.close();
-//	        }
-//	        catch(FileNotFoundException e) {
-//	           
-//	        } catch (IOException e) {
-//	            // TODO Auto-generated catch block
-//	            e.printStackTrace();
-//	        }
+
 		
+	    java.net.URI location;
+	    Response response = null;
 		try {
-			response.sendRedirect("EhdokasPaneeli.jsp");
-			//RequestDispatcher rd = request.getRequestDispatcher("/EhdokasPaneeli.jsp");
-			//rd.forward(request, response);
-		} catch (IOException e) {
+			location = new java.net.URI("/Ehdokaspaneeli");
+		    response = Response.temporaryRedirect(location).build();
+	} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		return response;
+}
 	
 	@POST
     @Path("/delete/{id}")
