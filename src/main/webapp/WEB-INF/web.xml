@@ -21,6 +21,10 @@
     <servlet-class>Ohjauspaneeli.Ehdokaspaneeli</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Ehdokasmuokkaus</servlet-name>
+    <servlet-class>Ohjauspaneeli.Ehdokasmuokkaus</servlet-class>
+  </servlet>
+  <servlet>
 	<servlet-name>ehdokasservice</servlet-name>
 	<servlet-class>
 		org.glassfish.jersey.servlet.ServletContainer
@@ -43,6 +47,10 @@
   <servlet-mapping>
     <servlet-name>Ehdokaspaneeli</servlet-name>
     <url-pattern>/Ehdokaspaneeli</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Ehdokasmuokkaus</servlet-name>
+    <url-pattern>/Ehdokasmuokkaus</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   <servlet-name>ehdokasservice</servlet-name>

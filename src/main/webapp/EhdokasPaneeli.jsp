@@ -54,7 +54,7 @@
 					<th id="poista">Poista</th>
 					<th>Nimi</th>
 					<th>Puolue</th>
-					<th colspan="2">Paikkakunta</th>
+					<th>Paikkakunta</th>
 				</tr>
 				<tr>
 					<td id="rullatd" colspan="5">
@@ -79,7 +79,7 @@
 									<td><label><%=nimi%></label></td>
 									<td><label><%=puolue%></label></td>
 									<td><label><%=paikkakunta%></label></td>
-									<td class="button"><a href="http://localhost:8080/ehdokasservice/edit/<%=id%>"><button type="button">Muokkaa</button></a></td>
+									<td class="button"><a href="http://localhost:8080/Ehdokasmuokkaus?id=<%=id%>"><button type="button">Muokkaa</button></a></td>
 								</tr>
 								<%
 									i++;
@@ -90,7 +90,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><input type='button' name='ok' value='Poista' onclick='deleteData();'></td>
+					<td colspan="6"><input id='poistaBtn' type='button' name='ok' value='Poista valitut' onclick='deleteData();'></td>
 				</tr>
 			</table>
 		</form>

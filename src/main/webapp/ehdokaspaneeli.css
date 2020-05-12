@@ -86,8 +86,12 @@ body {
 	margin: 0 0 4px 0;
 }
 
-.text input {
+.text input, .text textarea {
 	width: calc(100% - 4px);
+}
+
+.text textarea {
+	resize: vertical;
 }
 
 td, th {
@@ -128,7 +132,7 @@ th[class="index"] {
 	padding: 0;
 	width: 1px;
 }
-#tallennaBtn {
+#tallennaBtn, #poistaBtn {
 	display: block;
 	margin: 10px auto;
 }
@@ -145,5 +149,15 @@ th[class="index"] {
 }
 #rullatd {
 	padding: 0;
+}
+#muokkausForm {
+	border-collapse: collapse;
+	width: 100%;
+}
+#muokkausForm th {
+	width: 1px;
+}
+.lyhyt {
+	text-align: right;
 }
 	

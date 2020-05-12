@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
@@ -79,7 +80,56 @@ public class EhdokasService {
 		em.getTransaction().commit();
 		em.close();
 
-		
+
+	    java.net.URI location;
+	    Response response = null;
+		try {
+			location = new java.net.URI("/Ehdokaspaneeli");
+		    response = Response.temporaryRedirect(location).build();
+	} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+}
+
+	@POST
+	@Path("/editehdokas/{id}")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response editEhdokas(@PathParam("id") int id, @FormParam("etunimi") String etunimi, @FormParam("sukunimi") String sukunimi, 
+			@FormParam("ika") int ika, @FormParam("puolue") String puolue, 
+			@FormParam("paikkakunta") String kotipaikkakunta, @FormParam("ammatti") String ammatti, 
+			@FormParam("miksiEduskuntaan") String miksiEduskuntaan, 
+			@FormParam("mitaAsioitaHaluatEdistaa") String MitaAsioitaHaluatEdistaa) {
+		EntityManagerFactory emfactory = null;
+		EntityManager em = null;
+		EntityTransaction etx = null;
+		try {
+			emfactory = Persistence.createEntityManagerFactory("vaalikones");
+			em = emfactory.createEntityManager();
+			etx = em.getTransaction();
+			Query query = em.createNamedQuery("Ehdokkaat.findByEhdokasId");
+			query.setParameter("ehdokasId", id);
+			List<Ehdokkaat> ehdokasList = (List<Ehdokkaat>) query.getResultList();
+			Ehdokkaat ehdokas = ehdokasList.get(0);
+			etx.begin();
+			ehdokas.setEtunimi(etunimi);
+			ehdokas.setSukunimi(sukunimi);
+			ehdokas.setPuolue(puolue);
+			ehdokas.setIka(ika);
+			ehdokas.setKotipaikkakunta(kotipaikkakunta);
+			ehdokas.setAmmatti(ammatti);
+			ehdokas.setMiksiEduskuntaan(miksiEduskuntaan);
+			ehdokas.setMitaAsioitaHaluatEdistaa(MitaAsioitaHaluatEdistaa);
+			etx.commit();
+			em.close();
+		} catch (Exception e) {
+			etx.rollback();
+			em.close();
+			e.printStackTrace();
+		}
+
+
 	    java.net.URI location;
 	    Response response = null;
 		try {

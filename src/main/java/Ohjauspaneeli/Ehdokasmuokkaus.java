@@ -19,7 +19,7 @@ public class Ehdokasmuokkaus extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
-	  String id = (String) request.getAttribute("id");
+	  String id = (String) request.getParameter("id");
 	  String uri = "http://localhost:8080/ehdokasservice/getEhdokas/" + id;
 	  Client client = ClientBuilder.newClient();
 	  WebTarget wt = client.target(uri);
@@ -34,6 +34,5 @@ public class Ehdokasmuokkaus extends HttpServlet {
 	  } catch (Exception e) {
 		  e.printStackTrace();
 	  }
-	  
   }
 }
